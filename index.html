@@ -303,9 +303,10 @@
        document.getElementById("textInput").value;
 
     firebase.database()
-      .ref("/displayText")
+      .ref("displayText")
       .set(text);
 }
   </script>
 </body>
 </html>
+
