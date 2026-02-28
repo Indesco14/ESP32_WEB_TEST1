@@ -137,23 +137,22 @@
       }
     }
 
-   #chatHistory {
-  width: 100%;             /* full width */
-  max-width: 500px;        /* optional max width */
-  height: 250px;           /* fixed height */
-  border: 2px solid #444;  /* visible border */
+    #chatHistory {
+  width: 400px;
+  height: 250px;
+  border: 2px solid #444;
   padding: 10px;
-  overflow-y: auto;        /* scroll if content exceeds height */
-  background-color: #111;  /* dark background */
-  color: #fff;             /* white text */
-  font-family: monospace;  /* fixed width font for readability */
+  overflow-y: auto;
+  background-color: #462121;
+  color: #00ffcc;
+  font-family: monospace;
 }
 
 .chatMessage {
-  color: #fff;
   margin-bottom: 6px;
   padding: 4px;
   border-bottom: 1px solid #333;
+  color: #fff;
 }
 
     footer {
@@ -337,6 +336,7 @@
          input.value = "";
       });
 }
+
 firebase.database()
   .ref("/messages")
   .on("child_added", function(snapshot) {
