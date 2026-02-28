@@ -244,10 +244,20 @@
     firebase.database()
   .ref("/messages")
   .on("child_added", function(snapshot) {
+    console.log("child_added triggered");
+
+    console.log("RAW SNAPSHOT:", snapshot);
+
+    console.log("KEY:", snapshot.key);
+
+    console.log("VALUE:", snapshot.val());
     console.log("Firebase event fired");
     const data = snapshot.val();
 
-    if (!data) return;
+     if (!data) {
+      console.log("No data received");
+      return;
+    }
 
     const msg = data.message || "";
     const time = new Date(data.time || Date.now());
@@ -266,6 +276,8 @@
 
     // Auto-scroll to newest message
     history.scrollTop = history.scrollHeight;
+    console.log("MESSAGE FIELD:", data.message);
+    console.log("TIME FIELD:", data.time);
     });
 });
     // Predefined login credentials (can be replaced with your logic)
