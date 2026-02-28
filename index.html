@@ -216,6 +216,7 @@
 
     <h3>Chat History</h3>
     <div id="chatHistory"></div>
+    <button id="clearHistoryBtn">Clear History</button>
     <br>
 
   </div>
@@ -361,8 +362,24 @@
         })
       .then(() => {
          input.value = "";
-      });
+      });  
 }
+document.getElementById("clearHistoryBtn").onclick = () => {
+  const db = firebase.database();
+  if (confirm("Are you sure you want to clear the chat history? This cannot be undone.")) {
+    // Remove all messages from Firebase
+    db.ref("/messages").remove()
+      .then(() => {
+        // Clear chat history in the browser
+        const history = document.getElementById("chatHistory");
+        history.innerHTML = "";
+        console.log("Chat history cleared.");
+      })
+      .catch(error => {
+        console.error("Error clearing chat history:", error);
+      });
+  }
+};
   </script>
 </body>
 </html>
