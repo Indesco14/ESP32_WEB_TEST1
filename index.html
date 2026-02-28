@@ -237,8 +237,8 @@
   messagingSenderId: "844812818229",
   appId: "1:844812818229:web:2d629e85c23dac768ede7c"
 };
-
-   firebase.database()
+    firebase.initializeApp(firebaseConfig);
+    firebase.database()
   .ref("/messages")
   .on("child_added", function(snapshot) {
     console.log("Firebase event fired");
@@ -264,8 +264,6 @@
     // Auto-scroll to newest message
     history.scrollTop = history.scrollHeight;
 });
-
-    firebase.initializeApp(firebaseConfig);
 
     // Predefined login credentials (can be replaced with your logic)
     const allowedEmail = "rausis@gmail.com";
