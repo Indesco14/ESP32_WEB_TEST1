@@ -239,45 +239,6 @@
     console.log("Firebase initialized");
     console.log(firebase.apps.length);
     
-    firebase.database()
-  .ref("/messages")
-  .on("child_added", function(snapshot) {
-    console.log("child_added triggered");
-
-    console.log("RAW SNAPSHOT:", snapshot);
-
-    console.log("KEY:", snapshot.key);
-
-    console.log("VALUE:", snapshot.val());
-    console.log("Firebase event fired");
-    const data = snapshot.val();
-
-     if (!data) {
-      console.log("No data received");
-      return;
-    }
-
-    const msg = data.message || "";
-    const time = new Date(data.time || Date.now());
-
-    const div = document.createElement("div");
-    div.className = "chatMessage";
-
-    div.innerHTML =
-      "[" + time.toLocaleString() + "] "
-      + msg;
-
-    const history =
-      document.getElementById("chatHistory");
-
-    history.appendChild(div);
-
-    // Auto-scroll to newest message
-    history.scrollTop = history.scrollHeight;
-    console.log("MESSAGE FIELD:", data.message);
-    console.log("TIME FIELD:", data.time);
-    });
-
     // Predefined login credentials (can be replaced with your logic)
     const allowedEmail = "rausis@gmail.com";
     const allowedPassword = "rausis123";
