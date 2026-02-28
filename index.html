@@ -299,14 +299,20 @@
     };
 
     function sendText() {
-      const text =
-       document.getElementById("textInput").value;
 
-    firebase.database()
+     const input = document.getElementById("textInput");
+     const text = input.value;
+
+     firebase.database()
       .ref("/displayText")
-      .set(text);
-      // Clear textbox
-  input.value = "";
+      .set(text)
+      .then(() => {
+        input.value = "";   // clear after success
+     })
+      .catch((error) => {
+        console.error("Send failed:", error);
+     });
+   }
 }
   </script>
 </body>
