@@ -238,6 +238,9 @@
   appId: "1:844812818229:web:2d629e85c23dac768ede7c"
 };
     firebase.initializeApp(firebaseConfig);
+    document.addEventListener("DOMContentLoaded", function () {
+
+  console.log("DOM READY");
     firebase.database()
   .ref("/messages")
   .on("child_added", function(snapshot) {
@@ -263,8 +266,8 @@
 
     // Auto-scroll to newest message
     history.scrollTop = history.scrollHeight;
+    });
 });
-
     // Predefined login credentials (can be replaced with your logic)
     const allowedEmail = "rausis@gmail.com";
     const allowedPassword = "rausis123";
