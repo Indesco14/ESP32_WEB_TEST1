@@ -305,6 +305,8 @@
     firebase.database()
       .ref("/displayText")
       .set(text);
+      // Clear textbox
+  input.value = "";
 }
   </script>
 </body>
