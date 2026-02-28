@@ -136,6 +136,24 @@
         padding: 0 10px 60px;
       }
     }
+
+    #chatHistory {
+  width: 400px;
+  height: 250px;
+  border: 2px solid #444;
+  padding: 10px;
+  overflow-y: auto;
+  background-color: #111;
+  color: #00ffcc;
+  font-family: monospace;
+}
+
+.chatMessage {
+  margin-bottom: 6px;
+  padding: 4px;
+  border-bottom: 1px solid #333;
+}
+
     footer {
       font-size: 0.9rem;
       color: #666;
@@ -192,6 +210,8 @@
 
     <h3>Chat History</h3>
     <div id="chatHistory"></div>
+    <br>
+
   </div>
 
   <footer>
@@ -321,18 +341,25 @@ firebase.database()
 
     const data = snapshot.val();
 
-    const msg = data.message;
-    const time = new Date(data.time);
+    if (!data) return;
+
+    const msg = data.message || "";
+    const time = new Date(data.time || Date.now());
 
     const div = document.createElement("div");
+    div.className = "chatMessage";
 
     div.innerHTML =
       "[" + time.toLocaleString() + "] "
       + msg;
 
-    document
-      .getElementById("chatHistory")
-      .appendChild(div);
+    const history =
+      document.getElementById("chatHistory");
+
+    history.appendChild(div);
+
+    // Auto-scroll to newest message
+    history.scrollTop = history.scrollHeight;
 });
 
   </script>
