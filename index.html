@@ -169,10 +169,9 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
 </head>
+
 <body>
-
   <h1>ESP32 Attalinata vadiba Test 3</h1>
-
   <!-- Login form -->
   <div id="loginForm">
     <input type="email" id="email" placeholder="Enter Email" required />
@@ -305,6 +304,7 @@
             loginForm.style.display = "none";
             dashboard.style.display = "block";
             startRelayControl();
+            startChatListener();
           })
           .catch(error => {
             alert("Firebase login failed: " + error.message);
@@ -348,6 +348,32 @@
         });
       };
     }
+
+    function startChatListener() {
+  const messagesRef = firebase.database().ref("/messages");
+
+  // Fetch all existing messages
+  messagesRef.once("value").then(snapshot => {
+    snapshot.forEach(childSnap => {
+      const data = childSnap.val();
+      const div = document.createElement("div");
+      div.className = "chatMessage";
+      div.textContent = `[${new Date(data.time).toLocaleString()}] ${data.message}`;
+      document.getElementById("chatHistory").appendChild(div);
+    });
+  });
+
+  // Listen for new messages
+  messagesRef.on("child_added", snapshot => {
+    const data = snapshot.val();
+    const div = document.createElement("div");
+    div.className = "chatMessage";
+    div.textContent = `[${new Date(data.time).toLocaleString()}] ${data.message}`;
+    const history = document.getElementById("chatHistory");
+    history.appendChild(div);
+    history.scrollTop = history.scrollHeight;
+  });
+}
 
     document.getElementById("logoutBtn").onclick = () => {
       firebase.auth().signOut()
