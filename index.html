@@ -238,6 +238,32 @@
   appId: "1:844812818229:web:2d629e85c23dac768ede7c"
 };
 
+   firebase.database()
+  .ref("/messages")
+  .on("child_added", function(snapshot) {
+    console.log("Firebase event fired");
+    const data = snapshot.val();
+
+    if (!data) return;
+
+    const msg = data.message || "";
+    const time = new Date(data.time || Date.now());
+
+    const div = document.createElement("div");
+    div.className = "chatMessage";
+
+    div.innerHTML =
+      "[" + time.toLocaleString() + "] "
+      + msg;
+
+    const history =
+      document.getElementById("chatHistory");
+
+    history.appendChild(div);
+
+    // Auto-scroll to newest message
+    history.scrollTop = history.scrollHeight;
+});
 
     firebase.initializeApp(firebaseConfig);
 
@@ -338,33 +364,6 @@
          input.value = "";
       });
 }
-
-firebase.database()
-  .ref("/messages")
-  .on("child_added", function(snapshot) {
-
-    const data = snapshot.val();
-
-    if (!data) return;
-
-    const msg = data.message || "";
-    const time = new Date(data.time || Date.now());
-
-    const div = document.createElement("div");
-    div.className = "chatMessage";
-
-    div.innerHTML =
-      "[" + time.toLocaleString() + "] "
-      + msg;
-
-    const history =
-      document.getElementById("chatHistory");
-
-    history.appendChild(div);
-
-    // Auto-scroll to newest message
-    history.scrollTop = history.scrollHeight;
-});
 
   </script>
 </body>
