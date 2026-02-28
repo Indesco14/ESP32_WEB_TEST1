@@ -138,21 +138,23 @@
     }
 
     #chatHistory {
-  width: 400px;
-  height: 250px;
+  width: 100%;             /* fill parent container */
+  max-width: 500px;        /* optional max width */
+  height: 250px;           /* fixed height */
   border: 2px solid #444;
   padding: 10px;
-  overflow-y: auto;
+  overflow-y: auto;        /* scroll if content exceeds height */
   background-color: #462121;
-  color: #00ffcc;
+  color: #fff;             /* important: text color */
   font-family: monospace;
+  border-radius: 8px;
 }
 
 .chatMessage {
   margin-bottom: 6px;
   padding: 4px;
   border-bottom: 1px solid #333;
-  color: #fff;
+  color: #fff;             /* ensures message text is visible */
 }
 
     footer {
