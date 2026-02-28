@@ -299,15 +299,12 @@
     };
 
     function sendText() {
-      const input = document.getElementById("textInput");
-      const text = input.value;
+      const text =
+       document.getElementById("textInput").value;
 
-    set(ref(database, 'display/text'), {
-      message: text
-    });
-
-    // Clear textbox
-    input.value = "";
+    firebase.database()
+      .ref("/displayText")
+      .set(text);
 }
   </script>
 </body>
