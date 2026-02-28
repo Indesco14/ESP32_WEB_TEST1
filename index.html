@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>ESP32 WEB Remote test</title>
+  <title>ESP32 Attalinatas vadibas tests 2</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
@@ -146,7 +146,7 @@
 </head>
 <body>
 
-  <h1>ESP32 WEB Remote test</h1>
+  <h1>ESP32 Attalinata vadiba Test 2</h1>
 
   <!-- Login form -->
   <div id="loginForm">
@@ -185,10 +185,14 @@
 
     <button id="allOffBtn">All OFF</button>
     <button id="logoutBtn">Logout</button>
+
+    <h2>Nosuti zinu uz ESP32</h2>
+    <input type="text" id="textInput" placeholder="Type message">
+    <button onclick="sendText()">Send</button>
   </div>
 
   <footer>
-    Created by Tech StudyCell
+    Ja tu so lasi, lai tev veiksmiga diena!
   </footer>
 
   <!-- Firebase SDKs -->
@@ -293,6 +297,15 @@
           alert("Logout failed: " + error.message);
         });
     };
+
+    function sendText() {
+      const text =
+       document.getElementById("textInput").value;
+
+    firebase.database()
+      .ref("/displayText")
+      .set(text);
+}
   </script>
 </body>
 </html>
