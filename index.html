@@ -238,9 +238,9 @@
   appId: "1:844812818229:web:2d629e85c23dac768ede7c"
 };
     firebase.initializeApp(firebaseConfig);
-    document.addEventListener("DOMContentLoaded", function () {
-
-  console.log("DOM READY");
+    console.log("Firebase initialized");
+    console.log(firebase.apps.length);
+    
     firebase.database()
   .ref("/messages")
   .on("child_added", function(snapshot) {
