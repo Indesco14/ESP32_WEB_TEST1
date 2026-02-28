@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8" />
-  <title>ESP32 Attalinatas vadibas tests 3</title>
+  <title>ESP32 Attalinatas vadibas tests 2</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     body {
@@ -136,27 +136,6 @@
         padding: 0 10px 60px;
       }
     }
-
-    #chatHistory {
-  width: 100%;             /* fill parent container */
-  max-width: 500px;        /* optional max width */
-  height: 250px;           /* fixed height */
-  border: 2px solid #444;
-  padding: 10px;
-  overflow-y: auto;        /* scroll if content exceeds height */
-  background-color: #462121;
-  color: #fff;             /* important: text color */
-  font-family: monospace;
-  border-radius: 8px;
-}
-
-.chatMessage {
-  margin-bottom: 6px;
-  padding: 4px;
-  border-bottom: 1px solid #333;
-  color: #fff;             /* ensures message text is visible */
-}
-
     footer {
       font-size: 0.9rem;
       color: #666;
@@ -167,7 +146,7 @@
 </head>
 <body>
 
-  <h1>ESP32 Attalinata vadiba Test 3</h1>
+  <h1>ESP32 Attalinata vadiba Test 2</h1>
 
   <!-- Login form -->
   <div id="loginForm">
@@ -210,11 +189,6 @@
     <h2>Nosuti zinu uz ESP32</h2>
     <input type="text" id="textInput" placeholder="Type message">
     <button onclick="sendText()">Send</button>
-
-    <h3>Chat History</h3>
-    <div id="chatHistory"></div>
-    <br>
-
   </div>
 
   <footer>
@@ -237,49 +211,10 @@
   messagingSenderId: "844812818229",
   appId: "1:844812818229:web:2d629e85c23dac768ede7c"
 };
+
+
     firebase.initializeApp(firebaseConfig);
-    document.addEventListener("DOMContentLoaded", function () {
 
-  console.log("DOM READY");
-    firebase.database()
-  .ref("/messages")
-  .on("child_added", function(snapshot) {
-    console.log("child_added triggered");
-
-    console.log("RAW SNAPSHOT:", snapshot);
-
-    console.log("KEY:", snapshot.key);
-
-    console.log("VALUE:", snapshot.val());
-    console.log("Firebase event fired");
-    const data = snapshot.val();
-
-     if (!data) {
-      console.log("No data received");
-      return;
-    }
-
-    const msg = data.message || "";
-    const time = new Date(data.time || Date.now());
-
-    const div = document.createElement("div");
-    div.className = "chatMessage";
-
-    div.innerHTML =
-      "[" + time.toLocaleString() + "] "
-      + msg;
-
-    const history =
-      document.getElementById("chatHistory");
-
-    history.appendChild(div);
-
-    // Auto-scroll to newest message
-    history.scrollTop = history.scrollHeight;
-    console.log("MESSAGE FIELD:", data.message);
-    console.log("TIME FIELD:", data.time);
-    });
-});
     // Predefined login credentials (can be replaced with your logic)
     const allowedEmail = "rausis@gmail.com";
     const allowedPassword = "rausis123";
@@ -364,19 +299,20 @@
     };
 
     function sendText() {
-      const input = document.getElementById("textInput");
-      const text = input.value.trim();
-        if (text === "") return;
-          firebase.database()
-         .ref("/messages")
-         .push({
-          message: text,
-          time: Date.now()
-        })
+
+     const input = document.getElementById("textInput");
+     const text = input.value;
+
+     firebase.database()
+      .ref("/displayText")
+      .set(text)
       .then(() => {
-         input.value = "";
-      });
-}
+        input.value = "";   // clear after success
+     })
+      .catch((error) => {
+        console.error("Send failed:", error);
+     });
+   }
 
   </script>
 </body>
